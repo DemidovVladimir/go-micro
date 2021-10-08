@@ -1,0 +1,25 @@
+version: '3'
+services:
+  webserver:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+      args:
+        project: ./cmd/web
+    environment:
+      - PORT=4000
+      - APP_NAME=webserver
+    ports:
+      - 4000:4000
+    restart: on-failure
+    volumes:
+      - webserver_vol:/usr/src/webserver/
+    networks:
+      - monorepo_net
+
+volumes:
+  webserver_vol:
+
+networks:
+  monorepo_net:
+    driver: bridge
